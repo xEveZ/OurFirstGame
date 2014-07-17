@@ -52,12 +52,12 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
                 this->anim_colpo->draw();
 
             this->active = true;
-            return false;
+            return true;
         }
         else
         {
             this->active = false;
-            return true;
+            return false;
         }
     }
     else if(direction=="left")
@@ -72,12 +72,12 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
                 this->anim_colpo->draw();
 
             this->active = true;
-            return false;
+            return true;
         }
         else
         {
             this->active = false;
-            return true;
+            return false;
         }
     }
 
@@ -124,4 +124,24 @@ float colpo::getRadius()
     return this->radius;
 }
 
+void colpo::setActive(bool val)
+{
+    this->active = val;
+}
 
+void colpo::setX(float val)
+{
+    this->x = val;
+}
+
+void colpo::setY(float val)
+{
+    this->y = val;
+}
+void colpo::draw()
+{
+
+    this->anim_colpo->setPosition(this->x,this->y);
+    this->anim_colpo->draw();
+
+}

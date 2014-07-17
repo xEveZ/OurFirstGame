@@ -38,7 +38,7 @@
     bool down=false;
     bool right=false;
     bool left=false;
-
+    colpo* Colpo[24];
     std::string resolution[]= {"    < 640x480 >","    < 800x600 >","    < 1024x768 >","    < 1366X768 >"};
     int videochoice=0;
 
@@ -46,6 +46,27 @@
     bool fullscreen=false,sounds=false,fullscreen_bak,sounds_bak;
 
 //}
+
+
+float x_var_coord=400;
+float y_var_coord=300;
+float angle = -M_PI/4;
+//angolo 0 = destra
+
+
+//aggiungere poi un timer
+
+void SunPattern()
+{
+
+    x_var_coord+=cos(angle)*1.0;
+    y_var_coord+=sin(angle)*1.0;
+
+    Colpo[0]->setX(x_var_coord);
+    Colpo[0]->setY(y_var_coord);
+
+    Colpo[0]->draw();
+}
 
 
 int main(int argc,char** argv)
@@ -185,8 +206,6 @@ int main(int argc,char** argv)
 
 
     menu_option->setCursorTexture(animation);
-
-
 
 
     while(!quit)
@@ -360,6 +379,16 @@ int main(int argc,char** argv)
                             {
                                 case 0:
                                     inGame();
+
+                                    for(int i=0;i<24;i++)
+                                    {
+                                        Colpo[i] = new colpo(10.0f);
+                                        Colpo[i]->setActive(true);
+                                        Colpo[i]->shotFrom(dev->getScreenWidth()/2,dev->getScreenHeight()/2);
+                                    }
+
+
+
                                 break;
                                 case 1:
                                     OptionMenu();
@@ -481,6 +510,9 @@ void displayFunction()
             boat->moveBoat("right");
 
         boat->draw(0);
+
+        SunPattern();
+
     }
     else if(main_menu)
         menu->draw();

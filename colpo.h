@@ -12,6 +12,8 @@
         ~colpo();
         float getX();
         float getY();
+        void setX(float val);
+        void setY(float val);
         void shotFrom(float posx,float posy);
         bool shot(int screenw,int screenh,std::string direction="right");
         void activate(bool val);
@@ -22,6 +24,8 @@
         float getCenterY();
         void setRadius(float val);
         float getRadius();
+        void setActive(bool val);
+        void draw();
     protected:
         float x,y;
         float speed;

@@ -12,5 +12,5 @@
     std::string convertInt(int number);
 
     #include "menu.h"
-
+    #include "colpo.h"
 #endif // _MAIN_H_

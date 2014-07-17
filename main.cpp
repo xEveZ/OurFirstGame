@@ -12,6 +12,7 @@
     pegaAnimationManager* animation_manager;    //gestore delle animazioni
     pegaFontRenderer* font_renderer;
     pegaFontResource* font_batman;
+    pegaResourceManager* res;
 //}
 
 //{                     VARIABILI GLOBALE AL DOCUMENTO
@@ -55,7 +56,7 @@ int main(int argc,char** argv)
     pegaDevice* dev = new pegaDevice();
     pegaWindow* window;
     pegaEvent* event;
-    pegaResourceManager* res;
+
     pegaAnimation* animation;
     mainMenu();
 

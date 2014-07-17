@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1405191958 source:c:\users\nicholas\nuovaprogrammazione\pegasus engine - spaceinvaders\main.cpp
+1405544456 source:c:\users\nicholas\nuovaprogrammazione\pegasus engine - spaceinvaders\main.cpp
 	"main.h"
 
-1404830349 c:\users\nicholas\nuovaprogrammazione\pegasus engine - spaceinvaders\main.h
+1405544465 c:\users\nicholas\nuovaprogrammazione\pegasus engine - spaceinvaders\main.h
 	"Includer.h"
 	"nave.h"
 	"menu.h"
@@ -25,4 +25,11 @@
 
 1405014536 source:c:\users\nicholas\nuovaprogrammazione\pegasus engine - spaceinvaders\menu.cpp
 	"menu.h"
+
+1405545891 source:c:\users\nicholas\nuovaprogrammazione\pegasus engine - spaceinvaders\colpo.cpp
+	"colpo.h"
+
+1405545896 c:\users\nicholas\nuovaprogrammazione\pegasus engine - spaceinvaders\colpo.h
+	"Includer.h"
+	"main.h"
 

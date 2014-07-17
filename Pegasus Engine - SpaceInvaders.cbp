@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="Includer.h" />
+		<Unit filename="asteroide.cpp" />
+		<Unit filename="asteroide.h" />
 		<Unit filename="colpo.cpp" />
 		<Unit filename="colpo.h" />
 		<Unit filename="main.cpp" />

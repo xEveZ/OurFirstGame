@@ -8,6 +8,7 @@
     extern pegaAnimationManager* animation_manager;
     extern pegaFontRenderer* font_renderer;
     extern pegaFontResource* font_batman;
+    extern pegaResourceManager* res;
     std::string convertInt(int number);
 
     #include "menu.h"

@@ -10,7 +10,7 @@ nave::nave(int width,int height,int healthPoints,int ammo_val,float speed_val)
     this->curr_shot = 0;
 
     for(int i=0;i<this->ammo;i++)
-        this->shots[i] = new colpo(200);
+        this->shots[i] = new colpo(500);
 
 
     this->n_animazioni = 0;
@@ -122,10 +122,10 @@ bool nave::checkShottableShots(int val)
     return this->shots[val]->active;
 }
 
-void nave::shot()
+void nave::shot(int param)
 {
-    std::cout<<this->shots[curr_shot]->getX()<<":"<<this->shots[curr_shot]->getY()<<std::endl;
-    this->shots[this->curr_shot]->active=this->shots[this->curr_shot]->shot(800,600);
+    //std::cout<<this->shots[param]->getX()<<":"<<this->shots[param]->getY()<<std::endl;
+    this->shots[param]->active=this->shots[param]->shot(800,600);
 }
 int nave::getAmmo()
 {

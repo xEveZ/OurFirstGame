@@ -21,6 +21,7 @@
     void ShutGame();
 
     bool ingame;
+    bool shot=false;
     bool main_menu;
     bool option_menu;
     bool reboot_message = false;
@@ -51,14 +52,13 @@ int main(int argc,char** argv)
     bool quit = false;
     bool changing_vals=false;
 
-    pegaDevice* dev = new pegaDevice();
+    pegaDevice* dev = new pegaDevice(&argc,&argv);
+
     pegaWindow* window;
     pegaEvent* event;
 
     pegaAnimation* animation;
     mainMenu();
-
-    std::cout<<dev->getScreenWidth()<<";"<<dev->getScreenHeight()<<std::endl;
 
     std::fstream f;
 
@@ -204,6 +204,12 @@ int main(int argc,char** argv)
             {
                 case PEGA_EVENT_QUIT:
                     quit = true;
+                break;
+                case PEGA_EVENT_JOYAXIS:
+
+                    std::cout<<event->joyaxis->axis<<"     "<<event->joyaxis->value<<std::endl;
+
+
                 break;
                 case PEGA_EVENT_KEYDOWN:
                     switch(event->key->code)
@@ -489,7 +495,7 @@ void displayFunction()
         {
             if(boat->checkShottableShots(i))
             {
-                boat->shot();
+                boat->shot(i);
             }
         }
 

@@ -87,46 +87,53 @@
 1405546638 source:c:\users\nicholas\desktop\ourfirstgame\asteroide.cpp
 	"asteroide.h"
 
-1405546651 c:\users\nicholas\desktop\ourfirstgame\asteroide.h
+1405777374 c:\users\nicholas\desktop\ourfirstgame\asteroide.h
 	"Includer.h"
-	"main.h"
+	"global.h"
 
 1405109852 c:\users\nicholas\desktop\ourfirstgame\includer.h
 	<pega.h>
 	<sstream>
 	<fstream>
 
-1405616486 c:\users\nicholas\desktop\ourfirstgame\main.h
+1405774750 c:\users\nicholas\desktop\ourfirstgame\main.h
 	"Includer.h"
 	"nave.h"
+	"global.h"
 	"menu.h"
 	"colpo.h"
 
-1405771352 c:\users\nicholas\desktop\ourfirstgame\nave.h
+1405776890 c:\users\nicholas\desktop\ourfirstgame\nave.h
 	"Includer.h"
 	"colpo.h"
-	"main.h"
+	"global.h"
 
-1405012622 c:\users\nicholas\desktop\ourfirstgame\menu.h
+1405774687 c:\users\nicholas\desktop\ourfirstgame\menu.h
 	"Includer.h"
-	"main.h"
+	"global.h"
 
-1405771301 c:\users\nicholas\desktop\ourfirstgame\colpo.h
+1405774680 c:\users\nicholas\desktop\ourfirstgame\colpo.h
 	"Includer.h"
-	"main.h"
+	"global.h"
 
-1405771098 source:c:\users\nicholas\desktop\ourfirstgame\colpo.cpp
+1405777220 source:c:\users\nicholas\desktop\ourfirstgame\colpo.cpp
 	"colpo.h"
 
 1405014536 source:c:\users\nicholas\desktop\ourfirstgame\menu.cpp
 	"menu.h"
 
-1405769549 source:c:\users\nicholas\desktop\ourfirstgame\main.cpp
+1405784099 source:c:\users\nicholas\desktop\ourfirstgame\main.cpp
 	"main.h"
 
-1405771075 source:c:\users\nicholas\desktop\ourfirstgame\nave.cpp
+1405784099 source:c:\users\nicholas\desktop\ourfirstgame\nave.cpp
 	"nave.h"
 
 1405774723 c:\users\nicholas\documents\github\ourfirstgame\global.h
 	"Includer.h"
+
+1405774723 c:\users\nicholas\desktop\ourfirstgame\global.h
+	"Includer.h"
+
+1405774657 source:c:\users\nicholas\desktop\ourfirstgame\global.cpp
+	"global.h"
 

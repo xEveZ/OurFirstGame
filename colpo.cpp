@@ -8,7 +8,7 @@ colpo::colpo(float prj_speed)
 
     this->anim_colpo->pushFrame(this->text_colpo);
 
-    this->speed = prj_speed*0.05;
+    this->speed = prj_speed*0.001;
 
     this->active = false;
 
@@ -36,6 +36,8 @@ void colpo::shotFrom(float posx,float posy)
 
     this->center_x = posx+5;
     this->center_y = posy+5;
+
+    this->timer.reset();
 }
 
 bool colpo::shot(int screenw,int screenh,std::string direction)
@@ -47,7 +49,8 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
             this->anim_colpo->setPosition(this->x,this->y);
             this->center_x = this->x + 5;
             this->center_y = this->y + 5;
-            this->x+=this->speed;
+            this->x+=float(this->timer.getMilliSeconds())*this->speed;
+            this->timer.reset();
             if(this->active)
                 this->anim_colpo->draw();
 
@@ -59,6 +62,7 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
             this->active = false;
             return false;
         }
+
     }
     else if(direction=="left")
     {
@@ -68,6 +72,7 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
             this->center_x = this->x + 5;
             this->center_y = this->y + 5;
             this->x-=float(this->timer.getMilliSeconds())*this->speed;
+            this->timer.reset();
             if(this->active)
                 this->anim_colpo->draw();
 
@@ -80,6 +85,7 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
             return false;
         }
     }
+
 
 }
 

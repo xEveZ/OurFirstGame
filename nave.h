@@ -38,7 +38,7 @@
             void draw(int animToDraw);
             void die();
             void turbo(bool on);
-            void shot();
+            void shot(int param);
             void shotFromHere();
             void moveBoat(std::string direction);
             bool checkShottableShots(int val);

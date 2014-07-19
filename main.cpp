@@ -21,21 +21,26 @@
     void ShutGame();
 
     bool ingame;
-    bool shot=false;
     bool main_menu;
     bool option_menu;
     bool reboot_message = false;
     bool edited = false;
 
+    pegaAnimation* background_anim;
     pegaTextureResource* nave_anim_1[7];                //texture della nave principale
-    nave* boat;          //creazione dell'oggetto nave
+    nave* boat;                                         //creazione dell'oggetto nave
+    nave* enemy;
+    pegaTextureResource* enemy_anim[7];
+    pegaTextureResource* background_text;
+    pegaTimer timer;
     Menu* menu;
     Menu* menu_option;
 
-    bool up=false;                   //boolean per gestire il movimento della nave con gli eventi keydown/up
+    bool up=false;                                      //boolean per gestire il movimento della nave con gli eventi keydown/up
     bool down=false;
     bool right=false;
     bool left=false;
+    bool z=false;
     std::string resolution[]= {"    < 640x480 >","    < 800x600 >","    < 1024x768 >","    < 1366X768 >"};
     int videochoice=0;
 
@@ -58,6 +63,7 @@ int main(int argc,char** argv)
     pegaEvent* event;
 
     pegaAnimation* animation;
+    pegaAnimation* animation_enemy;
     mainMenu();
 
     std::fstream f;
@@ -76,7 +82,6 @@ int main(int argc,char** argv)
 
             f>>app;
 
-
             if(app=="ON")
                 fullscreen = true;
             else
@@ -88,7 +93,6 @@ int main(int argc,char** argv)
                 sounds = true;
             else
                 sounds = false;
-
 
             switch(resx)
             {
@@ -105,8 +109,6 @@ int main(int argc,char** argv)
                     videochoice=3;
                 break;
             }
-
-
         }
         else
         {
@@ -115,9 +117,6 @@ int main(int argc,char** argv)
             sounds = true;
             fullscreen = false;
         }
-
-
-
     f.close();
 
     fullscreen_bak = fullscreen;
@@ -132,11 +131,10 @@ int main(int argc,char** argv)
     font_batman = res->createFontResource("./fonts/batmfa.ttf",30);
     font_renderer->setFontResource(font_batman);
 
-
-
     menu = new Menu(0,3,60,0);
     menu_option = new Menu(0,7,50,0);
     boat = new nave(50,50,100,30,5.0);            //creazione dell'oggetto nave
+    enemy = new nave(49,29,100,30,5.0);
 
 
     for(int i=0;i<7;i++)
@@ -144,17 +142,32 @@ int main(int argc,char** argv)
         std::string app;
         app = "./img/nave[" + convertInt(i) + "].png";
         nave_anim_1[i] = res->createTextureResource(app.c_str());
+        app = "./img/enemy1[" + convertInt(i) + "].png";
+        enemy_anim[i] = res->createTextureResource(app.c_str());
     }
-
+    background_text = res->createTextureResource("./img/1600x600.png");
+    background_anim = animation_manager->createAnimation();
     animation = animation_manager->createAnimation();
-    for(int i=0;i<7;i++)
+    animation_enemy = animation_manager->createAnimation();
+    for(int i=0;i<7;i++){
         animation->pushFrame(nave_anim_1[i]);
-
+        animation_enemy->pushFrame(enemy_anim[i]);
+    }
+    background_anim->pushFrame(background_text);
     animation->setFPS(20);
+    animation_enemy->setFPS(20);
 
     boat->setAnimation(animation);
+    boat->setScale(50);
     boat->setPosx(0);
     boat->setPosy(resy/2);
+
+    enemy->setAnimation(animation_enemy);
+    enemy->setScale(30);
+    enemy->setPosx(resx-100);
+    enemy->setPosy(resy/2);
+
+    background_anim->setPosition(0,0);
 
     menu->setPosx(resx/2);
     menu->setPosy(resy-300);
@@ -205,18 +218,15 @@ int main(int argc,char** argv)
                 case PEGA_EVENT_QUIT:
                     quit = true;
                 break;
-                case PEGA_EVENT_JOYAXIS:
-
-                    std::cout<<event->joyaxis->axis<<"     "<<event->joyaxis->value<<std::endl;
-
-
-                break;
                 case PEGA_EVENT_KEYDOWN:
                     switch(event->key->code)
                     {
                         case PEGA_KEY_Z:
+                            {
+                                z=true;
+                                boat->shotFromHere();
+                            }
 
-                            boat->shotFromHere();
 
                         break;
                         case PEGA_KEY_UP:
@@ -451,6 +461,9 @@ int main(int argc,char** argv)
                         case PEGA_KEY_D:
                             right=false;
                         break;
+                        case PEGA_KEY_Z:
+                            z=false;
+                            break;
                         default:
                         break;
                     }
@@ -476,6 +489,8 @@ void ShutGame()
     reboot_message = true;
 }
 
+float backround_x_variable = 0;
+
 void displayFunction()
 {
 
@@ -490,7 +505,14 @@ void displayFunction()
         if(right && boat->getPosx()<resx-50)
             boat->moveBoat("right");
 
+        background_anim->setPosition(backround_x_variable,0);
+        backround_x_variable -= double(timer.getMilliSeconds())*0.003;
+        timer.reset();
+        background_anim->draw();
         boat->draw(0);
+        enemy->draw(0);
+
+
         for(int i=0;i<boat->getAmmo();i++)
         {
             if(boat->checkShottableShots(i))

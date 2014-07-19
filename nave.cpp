@@ -57,7 +57,7 @@ void nave::draw(int animToDraw)
     timer[0].reset();
     for(int i=0;i<this->n_animazioni;i++)
     {
-        this->animation[i]->setHeight(50);
+        this->animation[i]->setHeight(this->scale);
     }
 
     if(animToDraw<animazioni_nave)
@@ -103,7 +103,7 @@ float nave::getPosy()
 void nave::shotFromHere()
 {
 
-    if(timer[1].getMilliSeconds()>200)
+    if(timer[1].getMilliSeconds()>100)
     {
         if(this->curr_shot>=this->ammo)
         {
@@ -127,7 +127,27 @@ void nave::shot(int param)
     //std::cout<<this->shots[param]->getX()<<":"<<this->shots[param]->getY()<<std::endl;
     this->shots[param]->active=this->shots[param]->shot(800,600);
 }
+
 int nave::getAmmo()
 {
     return this->ammo;
 }
+
+void nave::setAnimHeight(int which,double h)
+{
+        this->animation[which]->setHeight(h);
+
+
+}
+
+void nave::setScale(double scale_value)
+{
+
+    this->scale = scale_value;
+}
+
+
+
+
+
+

@@ -23,6 +23,7 @@
             int hp;
             bool alive;
             bool _turbo;
+            double scale;
 
             colpo* shots[AMMO_NAVE_MAX_SHOTS];
             pegaAnimation* animation[animazioni_nave];
@@ -36,12 +37,14 @@
             void setAnimation(pegaAnimation* animazione);
 
             void draw(int animToDraw);
+            void setAnimHeight(int which,double h);
             void die();
             void turbo(bool on);
             void shot(int param);
             void shotFromHere();
             void moveBoat(std::string direction);
             bool checkShottableShots(int val);
+            void setScale(double scale_value);
 
             float getSpeed();
             float getPosx();

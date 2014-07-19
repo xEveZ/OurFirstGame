@@ -137,3 +137,53 @@
 1405774657 source:c:\users\nicholas\desktop\ourfirstgame\global.cpp
 	"global.h"
 
+1405787519 source:c:\users\lol\desktop\programmazione\ourfirstgame v1.1\asteroide.cpp
+	"asteroide.h"
+
+1405787519 c:\users\lol\desktop\programmazione\ourfirstgame v1.1\asteroide.h
+	"Includer.h"
+	"global.h"
+
+1405787519 c:\users\lol\desktop\programmazione\ourfirstgame v1.1\includer.h
+	<pega.h>
+	<sstream>
+	<fstream>
+
+1405787519 c:\users\lol\desktop\programmazione\ourfirstgame v1.1\global.h
+	"Includer.h"
+
+1405787519 source:c:\users\lol\desktop\programmazione\ourfirstgame v1.1\colpo.cpp
+	"colpo.h"
+
+1405787519 c:\users\lol\desktop\programmazione\ourfirstgame v1.1\colpo.h
+	"Includer.h"
+	"global.h"
+
+1405787519 source:c:\users\lol\desktop\programmazione\ourfirstgame v1.1\global.cpp
+	"global.h"
+
+1405793805 source:c:\users\lol\desktop\programmazione\ourfirstgame v1.1\main.cpp
+	"main.h"
+
+1405787519 c:\users\lol\desktop\programmazione\ourfirstgame v1.1\main.h
+	"Includer.h"
+	"nave.h"
+	"global.h"
+	"menu.h"
+	"colpo.h"
+
+1405793931 c:\users\lol\desktop\programmazione\ourfirstgame v1.1\nave.h
+	"Includer.h"
+	"colpo.h"
+	"global.h"
+
+1405787519 c:\users\lol\desktop\programmazione\ourfirstgame v1.1\menu.h
+	"Includer.h"
+	"global.h"
+
+1405787519 source:c:\users\lol\desktop\programmazione\ourfirstgame v1.1\menu.cpp
+	"menu.h"
+
+1405794098 source:c:\users\lol\desktop\programmazione\ourfirstgame v1.1\nave.cpp
+	"nave.h"
+

@@ -30,15 +30,14 @@
     bool edited = false;
 
     pegaTextureResource* nave_anim_1[7];                //texture della nave principale
-    nave* boat = new nave(50,50,100,30,5.0);            //creazione dell'oggetto nave
-    Menu* menu = new Menu(0,3,60,0);
-    Menu* menu_option = new Menu(0,7,50,0);
+    nave* boat;          //creazione dell'oggetto nave
+    Menu* menu;
+    Menu* menu_option;
 
     bool up=false;                   //boolean per gestire il movimento della nave con gli eventi keydown/up
     bool down=false;
     bool right=false;
     bool left=false;
-    colpo* Colpo[24];
     std::string resolution[]= {"    < 640x480 >","    < 800x600 >","    < 1024x768 >","    < 1366X768 >"};
     int videochoice=0;
 
@@ -48,25 +47,6 @@
 //}
 
 
-float x_var_coord=400;
-float y_var_coord=300;
-float angle = -M_PI/4;
-//angolo 0 = destra
-
-
-//aggiungere poi un timer
-
-void SunPattern()
-{
-
-    x_var_coord+=cos(angle)*1.0;
-    y_var_coord+=sin(angle)*1.0;
-
-    Colpo[0]->setX(x_var_coord);
-    Colpo[0]->setY(y_var_coord);
-
-    Colpo[0]->draw();
-}
 
 
 int main(int argc,char** argv)
@@ -157,6 +137,11 @@ int main(int argc,char** argv)
 
 
 
+    menu = new Menu(0,3,60,0);
+    menu_option = new Menu(0,7,50,0);
+    boat = new nave(50,50,100,30,5.0);            //creazione dell'oggetto nave
+
+
     for(int i=0;i<7;i++)
     {
         std::string app;
@@ -204,9 +189,7 @@ int main(int argc,char** argv)
 
     menu_option->addMenuCaption("BACK");
 
-
     menu_option->setCursorTexture(animation);
-
 
     while(!quit)
     {
@@ -228,6 +211,11 @@ int main(int argc,char** argv)
                 case PEGA_EVENT_KEYDOWN:
                     switch(event->key->code)
                     {
+                        case PEGA_KEY_Z:
+
+                            boat->shotFromHere();
+
+                        break;
                         case PEGA_KEY_UP:
                         case PEGA_KEY_W:
                             if(main_menu)
@@ -379,16 +367,6 @@ int main(int argc,char** argv)
                             {
                                 case 0:
                                     inGame();
-
-                                    for(int i=0;i<24;i++)
-                                    {
-                                        Colpo[i] = new colpo(10.0f);
-                                        Colpo[i]->setActive(true);
-                                        Colpo[i]->shotFrom(dev->getScreenWidth()/2,dev->getScreenHeight()/2);
-                                    }
-
-
-
                                 break;
                                 case 1:
                                     OptionMenu();
@@ -510,8 +488,13 @@ void displayFunction()
             boat->moveBoat("right");
 
         boat->draw(0);
-
-        SunPattern();
+        for(int i=0;i<boat->getAmmo();i++)
+        {
+            if(boat->checkShottableShots(i))
+            {
+                boat->shot();
+            }
+        }
 
     }
     else if(main_menu)

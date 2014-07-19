@@ -26,6 +26,7 @@
         float getRadius();
         void setActive(bool val);
         void draw();
+        bool active;
     protected:
         float x,y;
         float speed;
@@ -33,7 +34,8 @@
         pegaAnimation* anim_colpo;
         float center_x,center_y;
         float radius;
-        bool active;
+
+        pegaTimer timer;
 
     private:
         //nothing

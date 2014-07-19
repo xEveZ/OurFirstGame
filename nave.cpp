@@ -6,7 +6,13 @@ nave::nave(int width,int height,int healthPoints,int ammo_val,float speed_val)
     this->h = height;
     this->hp = healthPoints;
     this->ammo = ammo_val;
-    this->speed = speed_val;
+    this->speed = speed_val*0.06;
+    this->curr_shot = 0;
+
+    for(int i=0;i<this->ammo;i++)
+        this->shots[i] = new colpo(200);
+
+
     this->n_animazioni = 0;
     this->alive = true;
     this->_turbo = false;
@@ -48,6 +54,7 @@ void nave::setAnimation(pegaAnimation* animazione)
 
 void nave::draw(int animToDraw)
 {
+    timer[0].reset();
     for(int i=0;i<this->n_animazioni;i++)
     {
         this->animation[i]->setHeight(50);
@@ -63,24 +70,26 @@ void nave::moveBoat(std::string direction)
 {
     if(direction=="left")
     {
-        this->x-=speed;
+        this->x-=float(timer[0].getMilliSeconds())*speed;
     }
     else if(direction=="right")
     {
-        this->x+=speed;
+        this->x+=float(timer[0].getMilliSeconds())*speed;
     }
     else if(direction=="up")
     {
-        this->y-=speed;
+        this->y-=float(timer[0].getMilliSeconds())*speed;
     }
     else if(direction=="down")
     {
-        this->y+=speed;
+        this->y+=float(timer[0].getMilliSeconds())*speed;
     }
     else
     {
         std::cout<<"specificare una direzione valida (left/right/up/down)"<<std::endl;
     }
+
+
 }
 float nave::getPosx()
 {
@@ -91,3 +100,34 @@ float nave::getPosy()
     return y;
 }
 
+void nave::shotFromHere()
+{
+
+    if(timer[1].getMilliSeconds()>200)
+    {
+        if(this->curr_shot>=this->ammo)
+        {
+            this->curr_shot = 0;
+        }
+
+        this->shots[this->curr_shot]->active = true;
+        this->shots[this->curr_shot]->shotFrom(this->x+50,this->y+25);
+
+        this->curr_shot++;
+        this->timer[1].reset();
+    }
+}
+bool nave::checkShottableShots(int val)
+{
+    return this->shots[val]->active;
+}
+
+void nave::shot()
+{
+    std::cout<<this->shots[curr_shot]->getX()<<":"<<this->shots[curr_shot]->getY()<<std::endl;
+    this->shots[this->curr_shot]->active=this->shots[this->curr_shot]->shot(800,600);
+}
+int nave::getAmmo()
+{
+    return this->ammo;
+}

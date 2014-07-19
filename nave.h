@@ -4,8 +4,11 @@
 
     #define animazioni_nave 3
 
+    #define AMMO_NAVE_MAX_SHOTS 100
+
 
     #include "Includer.h"
+    #include "colpo.h"
     #include "main.h"
 
     class nave
@@ -21,8 +24,9 @@
             bool alive;
             bool _turbo;
 
-            //classe colpo LOL
+            colpo* shots[AMMO_NAVE_MAX_SHOTS];
             pegaAnimation* animation[animazioni_nave];
+            pegaTimer timer[2];
             int n_animazioni;
         public:
             nave(int width,int height,int healthPoints,int ammo_val,float speed_val);
@@ -34,14 +38,15 @@
             void draw(int animToDraw);
             void die();
             void turbo(bool on);
-
+            void shot();
+            void shotFromHere();
             void moveBoat(std::string direction);
-
+            bool checkShottableShots(int val);
 
             float getSpeed();
             float getPosx();
             float getPosy();
-
+            int getAmmo();
 
             ~nave();
     };

@@ -9,10 +9,7 @@
        ss << number;
        return ss.str();
     }
-    pegaAnimationManager* animation_manager;    //gestore delle animazioni
-    pegaFontRenderer* font_renderer;
-    pegaFontResource* font_batman;
-    pegaResourceManager* res;
+
 //}
 
 //{                     VARIABILI GLOBALE AL DOCUMENTO

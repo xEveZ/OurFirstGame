@@ -9,7 +9,7 @@
 
     #include "Includer.h"
     #include "colpo.h"
-    #include "main.h"
+    #include "global.h"
 
     class nave
     {

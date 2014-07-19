@@ -3,7 +3,7 @@
     #define _COLPO_H_
 
     #include "Includer.h"
-    #include "main.h"
+     #include "global.h"
 
     class colpo
     {

@@ -44,9 +44,9 @@
 1405546638 source:c:\users\nicholas\documents\github\ourfirstgame\asteroide.cpp
 	"asteroide.h"
 
-1405546651 c:\users\nicholas\documents\github\ourfirstgame\asteroide.h
+1405774671 c:\users\nicholas\documents\github\ourfirstgame\asteroide.h
 	"Includer.h"
-	"main.h"
+	"global.h"
 
 1405109852 c:\users\nicholas\documents\github\ourfirstgame\includer.h
 	<pega.h>
@@ -59,19 +59,20 @@
 	"menu.h"
 	"colpo.h"
 
-1404815042 c:\users\nicholas\documents\github\ourfirstgame\nave.h
+1405774696 c:\users\nicholas\documents\github\ourfirstgame\nave.h
 	"Includer.h"
-	"main.h"
+	"colpo.h"
+	"global.h"
 
-1405012622 c:\users\nicholas\documents\github\ourfirstgame\menu.h
+1405774687 c:\users\nicholas\documents\github\ourfirstgame\menu.h
 	"Includer.h"
-	"main.h"
+	"global.h"
 
-1405619409 c:\users\nicholas\documents\github\ourfirstgame\colpo.h
+1405774680 c:\users\nicholas\documents\github\ourfirstgame\colpo.h
 	"Includer.h"
-	"main.h"
+	"global.h"
 
-1405619461 source:c:\users\nicholas\documents\github\ourfirstgame\colpo.cpp
+1405771098 source:c:\users\nicholas\documents\github\ourfirstgame\colpo.cpp
 	"colpo.h"
 
 1405621436 source:c:\users\nicholas\documents\github\ourfirstgame\main.cpp
@@ -80,7 +81,7 @@
 1405014536 source:c:\users\nicholas\documents\github\ourfirstgame\menu.cpp
 	"menu.h"
 
-1405094336 source:c:\users\nicholas\documents\github\ourfirstgame\nave.cpp
+1405771733 source:c:\users\nicholas\documents\github\ourfirstgame\nave.cpp
 	"nave.h"
 
 1405546638 source:c:\users\nicholas\desktop\ourfirstgame\asteroide.cpp
@@ -125,4 +126,7 @@
 
 1405771075 source:c:\users\nicholas\desktop\ourfirstgame\nave.cpp
 	"nave.h"
+
+1405774723 c:\users\nicholas\documents\github\ourfirstgame\global.h
+	"Includer.h"
 

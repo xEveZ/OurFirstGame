@@ -12,7 +12,7 @@
     #define UP_TO_DOWN 7
 
     #include "Includer.h"
-    #include "main.h"
+    #include "global.h"
 
     class asteroide{
 

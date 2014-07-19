@@ -3,7 +3,7 @@
     #define _MENU_H_
 
     #include "Includer.h"
-    #include "main.h"
+    #include "global.h"
 
     #define menu_max_options 10
 

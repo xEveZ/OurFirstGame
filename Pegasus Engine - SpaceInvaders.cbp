@@ -36,6 +36,8 @@
 		<Unit filename="asteroide.h" />
 		<Unit filename="colpo.cpp" />
 		<Unit filename="colpo.h" />
+		<Unit filename="global.cpp" />
+		<Unit filename="global.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
 		<Unit filename="menu.cpp" />

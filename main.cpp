@@ -224,7 +224,7 @@ int main(int argc,char** argv)
                         case PEGA_KEY_Z:
                             {
                                 z=true;
-                                boat->shotFromHere();
+
                             }
 
 
@@ -504,6 +504,10 @@ void displayFunction()
             boat->moveBoat("left");
         if(right && boat->getPosx()<resx-50)
             boat->moveBoat("right");
+
+        if(z)
+            boat->shotFromHere();
+
 
         background_anim->setPosition(backround_x_variable,0);
         backround_x_variable -= double(timer.getMilliSeconds())*0.003;

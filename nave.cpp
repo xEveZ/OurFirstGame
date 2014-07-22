@@ -233,3 +233,30 @@ bool nave::isAlive()
 {
     return this->alive;
 }
+
+void nave::drawHitbox()
+{
+    pegaTextureResource* texture_hitbox;
+    pegaAnimation* anim_hitbox;
+
+
+    anim_hitbox = animation_manager->createAnimation();
+    texture_hitbox = res->createTextureResource("img/hitbox.png");
+
+    anim_hitbox->pushFrame(texture_hitbox);
+
+    anim_hitbox->setBlending(true);
+
+
+
+    anim_hitbox->setPosition(this->x,this->y);
+
+    anim_hitbox->setHeight(double(this->hitbox.radius)*2.0);
+
+    anim_hitbox->draw();
+
+
+
+
+
+}

@@ -597,6 +597,7 @@ void displayFunction()
             if(boat->isAlive())
             {
                 boat->draw(0);
+                boat->drawHitbox();
 
                 for(int i=0;i<boat->getAmmo();i++)
                 {

@@ -43,6 +43,8 @@
             void shot(int param,std::string direction);
             void shotFromHere(std::string direction);
             void moveBoat(std::string direction,bool bot=false,float moveto=0);
+            void drawHitbox();
+
             bool checkShottableShots(int val);
             void setScale(double scale_value);
             bool isAlive();

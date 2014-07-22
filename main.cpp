@@ -3,11 +3,21 @@
 
 
 //{                     VARIABILI GLOBALI AL PROGETTO
+
     std::string convertInt(int number)  //funzione per convertire da intero a string (utilizzata ad esempio per stampare l'hud)
     {
        std::stringstream ss;
        ss << number;
        return ss.str();
+    }
+
+    bool collision(circlebox n1, circlebox n2)
+    {
+        float sum = n1.radius + n2.radius;
+        sum*=sum;
+        float dist = (n2.center_x-n1.center_x)*(n2.center_x-n1.center_x)+(n2.center_y-n1.center_y)*(n2.center_y-n1.center_y);
+        if(dist<=sum)return true;
+        else         return false;
     }
 
 //}
@@ -20,19 +30,25 @@
     void OptionMenu();
     void ShutGame();
 
-    bool ingame;
-    bool main_menu;
-    bool option_menu;
+    bool ingame=false;
+    bool main_menu=true;
+    bool option_menu=false;
     bool reboot_message = false;
     bool edited = false;
 
     pegaAnimation* background_anim;
     pegaTextureResource* nave_anim_1[7];                //texture della nave principale
-    nave* boat;                                         //creazione dell'oggetto nave
-    nave* enemy;
+
+
+
+    nave* boat; bool boat_deleted=false;            //ogni nave deve avere il proprio bool di controllo per deletare gli oggetti
+    nave* enemy; bool enemy_deleted=false;          //quindi ne settiamo uno per ogni nave!
+
+
+
     pegaTextureResource* enemy_anim[7];
     pegaTextureResource* background_text;
-    pegaTimer timer;
+    pegaTimer timer,timer2;
     Menu* menu;
     Menu* menu_option;
 
@@ -134,7 +150,7 @@ int main(int argc,char** argv)
     menu = new Menu(0,3,60,0);
     menu_option = new Menu(0,7,50,0);
     boat = new nave(50,50,100,30,5.0);            //creazione dell'oggetto nave
-    enemy = new nave(49,29,100,30,5.0);
+    enemy = new nave(49,29,100,30,1.5);
 
 
     for(int i=0;i<7;i++)
@@ -145,6 +161,7 @@ int main(int argc,char** argv)
         app = "./img/enemy1[" + convertInt(i) + "].png";
         enemy_anim[i] = res->createTextureResource(app.c_str());
     }
+
     background_text = res->createTextureResource("./img/1600x600.png");
     background_anim = animation_manager->createAnimation();
     animation = animation_manager->createAnimation();
@@ -218,15 +235,17 @@ int main(int argc,char** argv)
                 case PEGA_EVENT_QUIT:
                     quit = true;
                 break;
+                case PEGA_EVENT_JOYBUTTONDOWN:
+
+                    std::cout<<event->joybutton->button<<std::endl;
+
+                break;
                 case PEGA_EVENT_KEYDOWN:
                     switch(event->key->code)
                     {
                         case PEGA_KEY_Z:
-                            {
-                                z=true;
 
-                            }
-
+                        z=true;
 
                         break;
                         case PEGA_KEY_UP:
@@ -496,32 +515,115 @@ void displayFunction()
 
     if(ingame)
     {
-        if(up && boat->getPosy()>0)
-            boat->moveBoat("up");
-        if(down && boat->getPosy()<resy-50)
-            boat->moveBoat("down");
-        if(left && boat->getPosx()>0)
-            boat->moveBoat("left");
-        if(right && boat->getPosx()<resx-50)
-            boat->moveBoat("right");
+        if(!boat_deleted && !enemy_deleted)
+        {
+            if(boat->isAlive() && enemy->isAlive())
+            {
+                if(collision(boat->hitbox,enemy->hitbox))
+                {
+                    boat->die();
+                }
+            }
+        }
 
-        if(z)
-            boat->shotFromHere();
+        //{deletamento navi
+        if(!boat_deleted)
+        {
+            if(!boat->isAlive())
+            {
+                delete boat;
+                boat = nullptr;
+                boat_deleted = true;
+                std::cout<<"deleted"<<std::endl;
 
+            }
+        }
+        if(!enemy_deleted)
+        {
+            if(!enemy->isAlive())
+            {
+                delete enemy;
+                enemy = nullptr;
+                enemy_deleted = true;
+                std::cout<<"deleted"<<std::endl;
+            }
+
+        }
+
+        //}
 
         background_anim->setPosition(backround_x_variable,0);
         backround_x_variable -= double(timer.getMilliSeconds())*0.003;
         timer.reset();
         background_anim->draw();
-        boat->draw(0);
-        enemy->draw(0);
 
-
-        for(int i=0;i<boat->getAmmo();i++)
+        if(!enemy_deleted)
         {
-            if(boat->checkShottableShots(i))
+            if(enemy->isAlive())
             {
-                boat->shot(i);
+                enemy->draw(0);
+                for(int i=0;i<enemy->getAmmo();i++)
+                {
+
+                    enemy->shotFromHere("left");
+                    if(enemy->checkShottableShots(i))
+                    {
+                        enemy->shot(i,"left");
+                    }
+                }
+                enemy->moveBoat("left",true,300);
+                enemy->moveBoat("up",true,200);
+            }
+
+
+
+        }
+
+        if(!boat_deleted)
+        {
+            if(up && boat->getPosy()>0)
+                boat->moveBoat("up");
+            if(down && boat->getPosy()<resy-50)
+                boat->moveBoat("down");
+            if(left && boat->getPosx()>0)
+                boat->moveBoat("left");
+            if(right && boat->getPosx()<resx-50)
+                boat->moveBoat("right");
+
+            if(z)
+                boat->shotFromHere("right");
+
+
+            if(boat->isAlive())
+            {
+                boat->draw(0);
+
+                for(int i=0;i<boat->getAmmo();i++)
+                {
+
+                    if(boat->checkShottableShots(i))
+                    {
+                        boat->shot(i,"right");
+                    }
+                    if(!enemy_deleted)
+                    {
+                        if(enemy->isAlive())
+                        {
+                            if(collision(boat->shots[i]->hitbox,enemy->hitbox))
+                            {
+                                boat->shots[i]->active = false;
+                                enemy->die();
+
+                            }
+                            if(collision(enemy->shots[i]->hitbox,boat->hitbox))
+                            {
+                                enemy->shots[i]->active = false;
+                                boat->die();
+                            }
+                        }
+                    }
+
+                }
             }
         }
 

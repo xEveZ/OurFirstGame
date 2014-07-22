@@ -2,7 +2,7 @@
 
 colpo::colpo(float prj_speed)
 {
-    this->radius = 5;
+    this->hitbox.radius = 5;
     this->text_colpo = res->createTextureResource("./img/colpo.png");
     this->anim_colpo = animation_manager->createAnimation();
 
@@ -34,8 +34,8 @@ void colpo::shotFrom(float posx,float posy)
     this->x = posx;
     this->y = posy;
 
-    this->center_x = posx+5;
-    this->center_y = posy+5;
+    this->hitbox.center_x = posx+5;
+    this->hitbox.center_y = posy+5;
 
     this->timer.reset();
 }
@@ -47,8 +47,8 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
         if(this->x<screenw)
         {
             this->anim_colpo->setPosition(this->x,this->y);
-            this->center_x = this->x + 5;
-            this->center_y = this->y + 5;
+            this->hitbox.center_x = this->x + 5;
+            this->hitbox.center_y = this->y + 5;
             this->x+=float(this->timer.getMilliSeconds())*this->speed;
             this->timer.reset();
             if(this->active)
@@ -69,8 +69,8 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
         if(this->x>0)
         {
             this->anim_colpo->setPosition(this->x,this->y);
-            this->center_x = this->x + 5;
-            this->center_y = this->y + 5;
+            this->hitbox.center_x = this->x + 5;
+            this->hitbox.center_y = this->y + 5;
             this->x-=float(this->timer.getMilliSeconds())*this->speed;
             this->timer.reset();
             if(this->active)
@@ -101,33 +101,33 @@ bool colpo::isActive()
 void colpo::setCenterX(float val)
 {
 
-    this->center_x = val;
+    this->hitbox.center_x = val;
 
 }
 
 float colpo::getCenterX()
 {
-    return this->center_x;
+    return this->hitbox.center_x;
 }
 
 void colpo::setCenterY(float val)
 {
-    this->center_y = val;
+    this->hitbox.center_y = val;
 }
 
 float colpo::getCenterY()
 {
-    return this->center_y;
+    return this->hitbox.center_y;
 }
 
 void colpo::setRadius(float val)
 {
-    this->radius = val;
+    this->hitbox.radius = val;
 }
 
 float colpo::getRadius()
 {
-    return this->radius;
+    return this->hitbox.radius;
 }
 
 void colpo::setActive(bool val)

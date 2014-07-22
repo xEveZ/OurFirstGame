@@ -8,5 +8,11 @@
     extern pegaFontResource* font_batman;
     extern pegaResourceManager* res;
 
+    typedef struct{
+        float center_x;
+        float center_y;
+        float radius;
+    }circlebox;
+
 
 #endif // _GLOBAL_H_

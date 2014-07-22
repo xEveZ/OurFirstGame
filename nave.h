@@ -24,12 +24,12 @@
             bool alive;
             bool _turbo;
             double scale;
-
-            colpo* shots[AMMO_NAVE_MAX_SHOTS];
             pegaAnimation* animation[animazioni_nave];
-            pegaTimer timer[2];
+            pegaTimer timer[3];
             int n_animazioni;
         public:
+            circlebox hitbox;
+            colpo* shots[AMMO_NAVE_MAX_SHOTS];
             nave(int width,int height,int healthPoints,int ammo_val,float speed_val);
             void setPosx(float pos_x);
             void setPosy(float pos_y);
@@ -40,12 +40,12 @@
             void setAnimHeight(int which,double h);
             void die();
             void turbo(bool on);
-            void shot(int param);
-            void shotFromHere();
-            void moveBoat(std::string direction);
+            void shot(int param,std::string direction);
+            void shotFromHere(std::string direction);
+            void moveBoat(std::string direction,bool bot=false,float moveto=0);
             bool checkShottableShots(int val);
             void setScale(double scale_value);
-
+            bool isAlive();
             float getSpeed();
             float getPosx();
             float getPosy();

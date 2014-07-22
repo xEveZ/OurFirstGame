@@ -27,13 +27,14 @@
         void setActive(bool val);
         void draw();
         bool active;
+
+        circlebox hitbox;
     protected:
         float x,y;
         float speed;
         pegaTextureResource* text_colpo;
         pegaAnimation* anim_colpo;
-        float center_x,center_y;
-        float radius;
+
 
         pegaTimer timer;
 

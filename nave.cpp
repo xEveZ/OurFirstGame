@@ -9,6 +9,12 @@ nave::nave(int width,int height,int healthPoints,int ammo_val,float speed_val)
     this->speed = speed_val*0.06;
     this->curr_shot = 0;
 
+
+    if(this->w > this->h)
+        this->hitbox.radius = height/2;
+    else
+        this->hitbox.radius = width/2;
+
     for(int i=0;i<this->ammo;i++)
         this->shots[i] = new colpo(500);
 
@@ -18,14 +24,25 @@ nave::nave(int width,int height,int healthPoints,int ammo_val,float speed_val)
     this->_turbo = false;
 }
 
+nave::~nave()
+{
+    for(int i=0;i<this->n_animazioni;i++)
+    {
+        animation_manager->deleteAnimation(animation[i]);
+    }
+}
+
+
 void nave::setPosx(float pos_x)
 {
     this->x = pos_x;
+    this->hitbox.center_x = pos_x+this->w/2;
 
 }
 void nave::setPosy(float pos_y)
 {
     this->y = pos_y;
+    this->hitbox.center_y = pos_y+this->h/2;
 
 }
 void nave::die()
@@ -54,7 +71,7 @@ void nave::setAnimation(pegaAnimation* animazione)
 
 void nave::draw(int animToDraw)
 {
-    timer[0].reset();
+    this->timer[0].reset();
     for(int i=0;i<this->n_animazioni;i++)
     {
         this->animation[i]->setHeight(this->scale);
@@ -66,23 +83,80 @@ void nave::draw(int animToDraw)
         this->animation[animToDraw]->draw();
     }
 }
-void nave::moveBoat(std::string direction)
+void nave::moveBoat(std::string direction,bool bot,float moveto)
 {
     if(direction=="left")
     {
-        this->x-=float(timer[0].getMilliSeconds())*speed;
+        if(!bot)
+        {
+                this->x-=float(this->timer[0].getMilliSeconds())*speed;
+                this->hitbox.center_x = this->x+this->w/2;
+        }
+        else
+        {
+            if(this->x>moveto)
+            {
+                this->x-=float(this->timer[2].getMilliSeconds())*speed;
+                this->hitbox.center_x = this->x+this->w/2;
+                this->timer[2].reset();
+
+            }
+
+        }
     }
     else if(direction=="right")
     {
-        this->x+=float(timer[0].getMilliSeconds())*speed;
+        if(!bot)
+        {
+            this->x+=float(this->timer[0].getMilliSeconds())*speed;
+            this->hitbox.center_x = this->x+this->w/2;
+        }
+        else
+        {
+            if(this->x<moveto)
+            {
+                this->x-=float(this->timer[2].getMilliSeconds())*speed;
+                this->hitbox.center_x = this->x+this->w/2;
+                this->timer[2].reset();
+
+            }
+        }
     }
     else if(direction=="up")
     {
-        this->y-=float(timer[0].getMilliSeconds())*speed;
+        if(!bot)
+        {
+            this->y-=float(this->timer[0].getMilliSeconds())*speed;
+            this->hitbox.center_y = this->y+this->h/2;
+        }
+        else
+        {
+            if(this->y>moveto)
+            {
+                this->y-=float(this->timer[2].getMilliSeconds())*speed;
+                this->hitbox.center_y = this->y+this->w/2;
+                this->timer[2].reset();
+
+            }
+        }
     }
     else if(direction=="down")
     {
-        this->y+=float(timer[0].getMilliSeconds())*speed;
+        if(!bot)
+        {
+            this->y+=float(this->timer[0].getMilliSeconds())*speed;
+            this->hitbox.center_y = this->y+this->h/2;
+        }
+        else
+        {
+            if(this->y<moveto)
+            {
+                this->y+=float(this->timer[2].getMilliSeconds())*speed;
+                this->hitbox.center_y = this->y+this->w/2;
+                this->timer[2].reset();
+
+            }
+        }
     }
     else
     {
@@ -100,10 +174,16 @@ float nave::getPosy()
     return y;
 }
 
-void nave::shotFromHere()
+void nave::shotFromHere(std::string direction)
 {
+    static bool first = true;
+    if(first)
+    {
+        this->timer[2].reset();
+        first = false;
+    }
 
-    if(timer[1].getMilliSeconds()>100)
+    if(this->timer[1].getMilliSeconds()>100)
     {
         if(this->curr_shot>=this->ammo)
         {
@@ -111,7 +191,11 @@ void nave::shotFromHere()
         }
 
         this->shots[this->curr_shot]->active = true;
-        this->shots[this->curr_shot]->shotFrom(this->x+50,this->y+25);
+
+        if(direction=="right")
+            this->shots[this->curr_shot]->shotFrom(this->x+50,this->y+25);
+        else if(direction=="left")
+            this->shots[this->curr_shot]->shotFrom(this->x-5,this->y+(this->h/2));
 
         this->curr_shot++;
         this->timer[1].reset();
@@ -122,10 +206,9 @@ bool nave::checkShottableShots(int val)
     return this->shots[val]->active;
 }
 
-void nave::shot(int param)
+void nave::shot(int param,std::string direction)
 {
-    //std::cout<<this->shots[param]->getX()<<":"<<this->shots[param]->getY()<<std::endl;
-    this->shots[param]->active=this->shots[param]->shot(800,600);
+    this->shots[param]->active=this->shots[param]->shot(800,600,direction);
 }
 
 int nave::getAmmo()
@@ -146,8 +229,7 @@ void nave::setScale(double scale_value)
     this->scale = scale_value;
 }
 
-
-
-
-
-
+bool nave::isAlive()
+{
+    return this->alive;
+}

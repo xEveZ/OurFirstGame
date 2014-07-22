@@ -20,11 +20,10 @@
             float x,y;
             pegaTextureResource* text_asteroide;
             pegaAnimation* anim_asteroide;
-            float center_x,center_y;
-            float radius;
             float speed;
             float alive;
         public:
+            circlebox hitbox;
             asteroide(float ast_speed);
             ~asteroide();
             void setSpeed(float ast_speed);

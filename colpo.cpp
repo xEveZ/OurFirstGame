@@ -42,6 +42,7 @@ void colpo::shotFrom(float posx,float posy)
 
 bool colpo::shot(int screenw,int screenh,std::string direction)
 {
+    (void)screenh;
     if(direction=="right")
     {
         if(this->x<screenw)
@@ -85,8 +86,7 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
             return false;
         }
     }
-
-
+    return false;
 }
 
 void colpo::activate(bool val)

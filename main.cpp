@@ -141,6 +141,7 @@ int main(int argc,char** argv)
     resy_bak = resy_bak;
 
     window = dev->createWindow("Titolo LOL",PEGA_ANTIALIASING_HIGH,fullscreen,resx,resy);
+    window->showCursor(false);
     res = dev->getResourceManager();
     font_renderer = dev->getFontRenderer();
     animation_manager = dev->getAnimationManager();

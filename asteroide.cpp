@@ -18,6 +18,7 @@ void asteroide::setPosY(float posy)
 bool asteroide::isAlive()
 {
 	this->alive = true;
+	return this->alive;
 }
 
 void asteroide::die()
@@ -27,5 +28,6 @@ void asteroide::die()
 
 void asteroide::moveAst(int kind_of_move)
 {
+	(void)kind_of_move;
 	//non so cosa debba fare la funzione
 }

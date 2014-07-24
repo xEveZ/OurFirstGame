@@ -1,6 +1,6 @@
 #include "nave.h"
 
-nave::nave(int width,int height,int healthPoints,int ammo_val,float speed_val)
+nave::nave(int width,int height,int healthPoints,int ammo_val,float speed_val,float atk_speed,float prj_speed)
 {
     this->w = width;
     this->h = height;
@@ -8,7 +8,7 @@ nave::nave(int width,int height,int healthPoints,int ammo_val,float speed_val)
     this->ammo = ammo_val;
     this->speed = speed_val*0.06;
     this->curr_shot = 0;
-
+    this->atkSpeed = atk_speed;
 
     if(this->w > this->h)
         this->hitbox.radius = height/2;
@@ -16,7 +16,7 @@ nave::nave(int width,int height,int healthPoints,int ammo_val,float speed_val)
         this->hitbox.radius = width/2;
 
     for(int i=0;i<this->ammo;i++)
-        this->shots[i] = new colpo(500);
+        this->shots[i] = new colpo(prj_speed);
 
 
     this->n_animazioni = 0;
@@ -183,7 +183,7 @@ void nave::shotFromHere(std::string direction)
         first = false;
     }
 
-    if(this->timer[1].getMilliSeconds()>100)
+    if(this->timer[1].getMilliSeconds()>this->atkSpeed)
     {
         if(this->curr_shot>=this->ammo)
         {

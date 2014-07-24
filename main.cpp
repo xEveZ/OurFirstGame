@@ -150,8 +150,9 @@ int main(int argc,char** argv)
 
     menu = new Menu(0,3,60,0);
     menu_option = new Menu(0,7,50,0);
-    boat = new nave(50,50,100,30,5.0);            //creazione dell'oggetto nave
-    enemy = new nave(49,29,100,30,1.5);
+    boat = new nave(50,50,100,30,5.0,150);            //più il valore dell'atk_speed è basso e più spara veloce, rappresenta
+                                                      //l'intervallo di tempo da aspettare prima di poter sparare un altro colpo
+    enemy = new nave(49,29,100,30,1.5,300);
 
 
     for(int i=0;i<7;i++)
@@ -535,7 +536,6 @@ void displayFunction()
                 delete boat;
                 boat = nullptr;
                 boat_deleted = true;
-                std::cout<<"deleted"<<std::endl;
 
             }
         }
@@ -546,7 +546,6 @@ void displayFunction()
                 delete enemy;
                 enemy = nullptr;
                 enemy_deleted = true;
-                std::cout<<"deleted"<<std::endl;
             }
 
         }
@@ -598,7 +597,6 @@ void displayFunction()
             if(boat->isAlive())
             {
                 boat->draw(0);
-                boat->drawHitbox();
 
                 for(int i=0;i<boat->getAmmo();i++)
                 {

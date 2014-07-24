@@ -45,7 +45,7 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
     (void)screenh;
     if(direction=="right")
     {
-        if(this->x<screenw)
+        if(this->x<screenw+20)
         {
             this->anim_colpo->setPosition(this->x,this->y);
             this->hitbox.center_x = this->x + 5;
@@ -61,13 +61,15 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
         else
         {
             this->active = false;
+            this->setX(-10.0);
+            this->setY(-10.0);
             return false;
         }
 
     }
     else if(direction=="left")
     {
-        if(this->x>0)
+        if(this->x>-20)
         {
             this->anim_colpo->setPosition(this->x,this->y);
             this->hitbox.center_x = this->x + 5;
@@ -83,6 +85,8 @@ bool colpo::shot(int screenw,int screenh,std::string direction)
         else
         {
             this->active = false;
+            this->setX(-10.0);
+            this->setY(-10.0);
             return false;
         }
     }

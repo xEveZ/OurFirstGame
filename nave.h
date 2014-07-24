@@ -22,6 +22,7 @@
             float speed;
             int hp;
             bool alive;
+            float atkSpeed;
             bool _turbo;
             double scale;
             pegaAnimation* animation[animazioni_nave];
@@ -30,7 +31,7 @@
         public:
             circlebox hitbox;
             colpo* shots[AMMO_NAVE_MAX_SHOTS];
-            nave(int width,int height,int healthPoints,int ammo_val,float speed_val);
+            nave(int width,int height,int healthPoints,int ammo_val,float speed_val,float atk_speed,float prj_speed=500);
             void setPosx(float pos_x);
             void setPosy(float pos_y);
             void setSpeed(float speed_val);

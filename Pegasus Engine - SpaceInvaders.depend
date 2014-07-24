@@ -60,7 +60,7 @@
 	"menu.h"
 	"colpo.h"
 
-1406034823 c:\users\nicholas\documents\github\ourfirstgame\nave.h
+1406193034 c:\users\nicholas\documents\github\ourfirstgame\nave.h
 	"Includer.h"
 	"colpo.h"
 	"global.h"
@@ -73,16 +73,16 @@
 	"Includer.h"
 	"global.h"
 
-1405941695 source:c:\users\nicholas\documents\github\ourfirstgame\colpo.cpp
+1406192539 source:c:\users\nicholas\documents\github\ourfirstgame\colpo.cpp
 	"colpo.h"
 
-1406037606 source:c:\users\nicholas\documents\github\ourfirstgame\main.cpp
+1406192896 source:c:\users\nicholas\documents\github\ourfirstgame\main.cpp
 	"main.h"
 
 1405847594 source:c:\users\nicholas\documents\github\ourfirstgame\menu.cpp
 	"menu.h"
 
-1406037560 source:c:\users\nicholas\documents\github\ourfirstgame\nave.cpp
+1406193118 source:c:\users\nicholas\documents\github\ourfirstgame\nave.cpp
 	"nave.h"
 
 1405546638 source:c:\users\nicholas\desktop\ourfirstgame\asteroide.cpp

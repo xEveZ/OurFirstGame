@@ -20,21 +20,21 @@
             float x,y;
             pegaTextureResource* text_asteroide;
             pegaAnimation* anim_asteroide;
+            pegaTimer timer;
             float speed;
             float alive;
         public:
             circlebox hitbox;
-            asteroide(float ast_speed);
+            asteroide();
             ~asteroide();
             void setSpeed(float ast_speed);
             void setPosX(float posx);
             void setPosY(float posy);
             void die();
             bool isAlive();
+            void draw();
             void moveAst(int kind_of_move = DIAGONAL_45_UP_TO_DOWN_RIGHT_SIDE);
     };
-
-
 
 
 

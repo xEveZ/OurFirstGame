@@ -37,6 +37,7 @@
             void setSpeed(float speed_val);
             void setAnimation(pegaAnimation* animazione);
 
+            void addCoord(double x,double y);
             void draw(int animToDraw);
             void setAnimHeight(int which,double h);
             void die();
@@ -45,6 +46,7 @@
             void shotFromHere(std::string direction);
             void moveBoat(std::string direction,bool bot=false,float moveto=0);
             void drawHitbox();
+            void setupBot();
 
             bool checkShottableShots(int val);
             void setScale(double scale_value);

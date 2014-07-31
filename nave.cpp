@@ -254,9 +254,20 @@ void nave::drawHitbox()
     anim_hitbox->setHeight(double(this->hitbox.radius)*2.0);
 
     anim_hitbox->draw();
+}
 
+void nave::addCoord(double x,double y)
+{
+    if(x!=0 and y!=0)
+    {
+        this->x+=x*2;
+        this->y+=y*2;
+    }
+}
 
-
+void nave::setupBot()
+{
+    this->timer[2].reset();
 
 
 }

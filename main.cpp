@@ -3,6 +3,8 @@
 
 
 //{                     VARIABILI GLOBALI AL PROGETTO
+    nave* boat; bool boat_deleted=false;            //ogni nave deve avere il proprio bool di controllo per deletare gli oggetti
+
 
     std::string convertInt(int number)  //funzione per convertire da intero a string (utilizzata ad esempio per stampare l'hud)
     {
@@ -20,6 +22,7 @@
         else         return false;
     }
 
+
 //}
 
 //{                     VARIABILI GLOBALE AL DOCUMENTO
@@ -36,19 +39,13 @@
     bool reboot_message = false;
     bool edited = false;
 
-    pegaAnimation* background_anim;
+
     pegaTextureResource* nave_anim_1[7];                //texture della nave principale
-
-
-
-    nave* boat; bool boat_deleted=false;            //ogni nave deve avere il proprio bool di controllo per deletare gli oggetti
-    nave* enemy; bool enemy_deleted=false;          //quindi ne settiamo uno per ogni nave!
-
 
 
     pegaTextureResource* enemy_anim[7];
     pegaTextureResource* background_text;
-    pegaTimer timer,timer2;
+    pegaTimer timer2;
     Menu* menu;
     Menu* menu_option;
 
@@ -60,26 +57,39 @@
     std::string resolution[]= {"    < 640x480 >","    < 800x600 >","    < 1024x768 >","    < 1366X768 >"};
     int videochoice=0;
 
-    int resx,resy,resx_bak,resy_bak;
+    int resx_bak,resy_bak;
     bool fullscreen=false,sounds=false,fullscreen_bak,sounds_bak;
 
 //}
 
-
+double calcola_angolo(double x,double y)
+{
+    if(x==0.0 && y==0.0)
+        return 0.0;
+    else
+    {
+       return atan2(y,x);
+    }
+}
+double calcola_magnitude(double x,double y)
+{
+    return sqrt(pow(x,2)+pow(y,2));
+}
 
 
 int main(int argc,char** argv)
 {
     bool quit = false;
     bool changing_vals=false;
-
+    double joy_x,joy_y;
+    double magnitude;
     pegaDevice* dev = new pegaDevice(&argc,&argv);
 
     pegaWindow* window;
     pegaEvent* event;
 
     pegaAnimation* animation;
-    pegaAnimation* animation_enemy;
+
     mainMenu();
 
     std::fstream f;
@@ -152,7 +162,6 @@ int main(int argc,char** argv)
     menu_option = new Menu(0,7,50,0);
     boat = new nave(50,50,100,30,5.0,150);            //più il valore dell'atk_speed è basso e più spara veloce, rappresenta
                                                       //l'intervallo di tempo da aspettare prima di poter sparare un altro colpo
-    enemy = new nave(49,29,100,30,1.5,300);
 
 
     for(int i=0;i<7;i++)
@@ -167,24 +176,30 @@ int main(int argc,char** argv)
     background_text = res->createTextureResource("./img/1600x600.png");
     background_anim = animation_manager->createAnimation();
     animation = animation_manager->createAnimation();
-    animation_enemy = animation_manager->createAnimation();
-    for(int i=0;i<7;i++){
+
+
+    for(int k=0;k<N_NAVI_NEMICHE_MODELLO_1;k++)
+        animation_enemy[k] = animation_manager->createAnimation();
+
+
+    for(int i=0;i<7;i++)
+    {
         animation->pushFrame(nave_anim_1[i]);
-        animation_enemy->pushFrame(enemy_anim[i]);
+        for(int k=0;k<N_NAVI_NEMICHE_MODELLO_1;k++)
+            animation_enemy[k]->pushFrame(enemy_anim[i]);
     }
     background_anim->pushFrame(background_text);
     animation->setFPS(20);
-    animation_enemy->setFPS(20);
+
+    for(int k=0;k<N_NAVI_NEMICHE_MODELLO_1;k++)
+        animation_enemy[k]->setFPS(20);
 
     boat->setAnimation(animation);
     boat->setScale(50);
     boat->setPosx(0);
     boat->setPosy(resy/2);
 
-    enemy->setAnimation(animation_enemy);
-    enemy->setScale(30);
-    enemy->setPosx(resx-100);
-    enemy->setPosy(resy/2);
+    setlevel_one();
 
     background_anim->setPosition(0,0);
 
@@ -237,9 +252,55 @@ int main(int argc,char** argv)
                 case PEGA_EVENT_QUIT:
                     quit = true;
                 break;
-                case PEGA_EVENT_JOYBUTTONDOWN:
+                case PEGA_EVENT_JOYDPAD:
 
-                    std::cout<<event->joybutton->button<<std::endl;
+                    if(event->joydpad->x==-1) left = true;
+                    else left = false;
+
+                    if(event->joydpad->x==1) right = true;
+                    else right = false;
+
+                    if(event->joydpad->y==-1) up = true;
+                    else up=false;
+
+                    if(event->joydpad->y==1) down = true;
+                    else down=false;
+
+                break;
+                case PEGA_EVENT_JOYBUTTONDOWN:
+                    if(event->joybutton->button==1)
+                        z=true;
+
+                break;
+                case PEGA_EVENT_JOYBUTTONUP:
+                    if(event->joybutton->button==1)
+                        z=false;
+
+
+                break;
+                case PEGA_EVENT_JOYAXIS:
+
+                if(ingame)
+                {
+                    switch(event->joyaxis->axis)
+                    {
+                        case 0:
+
+                            joy_x = event->joyaxis->value;
+
+                        break;
+                        case 1:
+
+                            joy_y = event->joyaxis->value;
+                        break;
+                        default:
+
+                        break;
+                    }
+                    boat->addCoord(joy_x,joy_y);
+                    std::cout<<boat->getPosx()<<"    "<<boat->getPosy()<<std::endl;
+
+                }
 
                 break;
                 case PEGA_EVENT_KEYDOWN:
@@ -247,7 +308,7 @@ int main(int argc,char** argv)
                     {
                         case PEGA_KEY_Z:
 
-                        z=true;
+                            z=true;
 
                         break;
                         case PEGA_KEY_UP:
@@ -510,23 +571,13 @@ void ShutGame()
     reboot_message = true;
 }
 
-float backround_x_variable = 0;
 
 void displayFunction()
 {
 
     if(ingame)
     {
-        if(!boat_deleted && !enemy_deleted)
-        {
-            if(boat->isAlive() && enemy->isAlive())
-            {
-                if(collision(boat->hitbox,enemy->hitbox))
-                {
-                    boat->die();
-                }
-            }
-        }
+
 
         //{deletamento navi
         if(!boat_deleted)
@@ -539,48 +590,13 @@ void displayFunction()
 
             }
         }
-        if(!enemy_deleted)
-        {
-            if(!enemy->isAlive())
-            {
-                delete enemy;
-                enemy = nullptr;
-                enemy_deleted = true;
-            }
-
-        }
 
         //}
-
-        background_anim->setPosition(backround_x_variable,0);
-        backround_x_variable -= double(timer.getMilliSeconds())*0.003;
-        timer.reset();
-        background_anim->draw();
-
-        if(!enemy_deleted)
-        {
-            if(enemy->isAlive())
-            {
-                enemy->draw(0);
-                for(int i=0;i<enemy->getAmmo();i++)
-                {
-
-                    enemy->shotFromHere("left");
-                    if(enemy->checkShottableShots(i))
-                    {
-                        enemy->shot(i,"left");
-                    }
-                }
-                enemy->moveBoat("left",true,300);
-                enemy->moveBoat("up",true,200);
-            }
-
-
-
-        }
-
+        firstlevel();
         if(!boat_deleted)
         {
+            if(z)
+                boat->shotFromHere("right");
             if(up && boat->getPosy()>0)
                 boat->moveBoat("up");
             if(down && boat->getPosy()<resy-50)
@@ -589,9 +605,6 @@ void displayFunction()
                 boat->moveBoat("left");
             if(right && boat->getPosx()<resx-50)
                 boat->moveBoat("right");
-
-            if(z)
-                boat->shotFromHere("right");
 
 
             if(boat->isAlive())
@@ -604,28 +617,25 @@ void displayFunction()
                     if(boat->checkShottableShots(i))
                     {
                         boat->shot(i,"right");
-                    }
-                    if(!enemy_deleted)
-                    {
-                        if(enemy->isAlive())
+
+                        for(int k=0;k<N_NAVI_NEMICHE_MODELLO_1;k++)
                         {
-                            if(collision(boat->shots[i]->hitbox,enemy->hitbox))
+                            if(enemies[k])
                             {
-                                boat->shots[i]->active = false;
-                                enemy->die();
+                                if(collision(boat->shots[i]->hitbox,enemy[k]->hitbox))
+                                {
+                                    enemy[k]->die();
+                                    boat->shots[i]->active=false;
+                                }
+                            }
 
-                            }
-                            if(collision(enemy->shots[i]->hitbox,boat->hitbox))
-                            {
-                                enemy->shots[i]->active = false;
-                                boat->die();
-                            }
                         }
-                    }
 
+                    }
                 }
             }
         }
+
 
     }
     else if(main_menu)

@@ -1,0 +1,191 @@
+/*
+Pegasus Engine
+Copyright (c) 2014, Dario Ostuni
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the <organization> nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL DARIO OSTUNI BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+#if defined _PEGA_H_
+
+#ifndef _PEGA_EVENT_KEYBOARD_H_
+#define _PEGA_EVENT_KEYBOARD_H_
+
+#define PEGA_KEY_UNKNOWN SDLK_UNKNOWN
+#define PEGA_KEY_RETURN SDLK_RETURN
+#define PEGA_KEY_ENTER SDLK_RETURN
+#define PEGA_KEY_ESCAPE SDLK_ESCAPE
+#define PEGA_KEY_BACKSPACE SDLK_BACKSPACE
+#define PEGA_KEY_TAB SDLK_TAB
+#define PEGA_KEY_SPACE SDLK_SPACE
+#define PEGA_KEY_EXCLAIM SDLK_EXCLAIM
+#define PEGA_KEY_DOUBLEQUOTE SDLK_QUOTEDBL
+#define PEGA_KEY_HASH SDLK_HASH
+#define PEGA_KEY_PERCENT SDLK_PERCENT
+#define PEGA_KEY_DOLLAR SDLK_DOLLAR
+#define PEGA_KEY_AMPERSAND SDLK_AMPERSAND
+#define PEGA_KEY_QUOTE SDLK_QUOTE
+#define PEGA_KEY_LEFTPARENT SDLK_LEFTPAREN
+#define PEGA_KEY_RIGHTPARENT SDLK_RIGHTPAREN
+#define PEGA_KEY_ASTERISK SDLK_ASTERISK
+#define PEGA_KEY_PLUS SDLK_PLUS
+#define PEGA_KEY_COMMA SDLK_COMMA
+#define PEGA_KEY_MINUS SDLK_MINUS
+#define PEGA_KEY_PERIOD SDLK_PERIOD
+#define PEGA_KEY_SLASH SDLK_SLASH
+#define PEGA_KEY_0 SDLK_0
+#define PEGA_KEY_1 SDLK_1
+#define PEGA_KEY_2 SDLK_2
+#define PEGA_KEY_3 SDLK_3
+#define PEGA_KEY_4 SDLK_4
+#define PEGA_KEY_5 SDLK_5
+#define PEGA_KEY_6 SDLK_6
+#define PEGA_KEY_7 SDLK_7
+#define PEGA_KEY_8 SDLK_8
+#define PEGA_KEY_9 SDLK_9
+#define PEGA_KEY_COLON SDLK_COLON
+#define PEGA_KEY_SEMICOLON SDLK_SEMICOLON
+#define PEGA_KEY_LESS SDLK_LESS
+#define PEGA_KEY_EQUALS SDLK_EQUALS
+#define PEGA_KEY_GREATER SDLK_GREATER
+#define PEGA_KEY_QUESTION SDLK_QUESTION
+#define PEGA_KEY_AT SDLK_AT
+#define PEGA_KEY_LEFTBRACKET SDLK_LEFTBRACKET
+#define PEGA_KEY_BACKSLASH SDLK_BACKSLASH
+#define PEGA_KEY_RIGHTBRACKET SDLK_RIGHTBRACKET
+#define PEGA_KEY_CARET SDLK_CARET
+#define PEGA_KEY_UNSERSCORE SDLK_UNDERSCORE
+#define PEGA_KEY_BACKQUOTE SDLK_BACKQUOTE
+#define PEGA_KEY_A SDLK_a
+#define PEGA_KEY_B SDLK_b
+#define PEGA_KEY_C SDLK_c
+#define PEGA_KEY_D SDLK_d
+#define PEGA_KEY_E SDLK_e
+#define PEGA_KEY_F SDLK_f
+#define PEGA_KEY_G SDLK_g
+#define PEGA_KEY_H SDLK_h
+#define PEGA_KEY_I SDLK_i
+#define PEGA_KEY_J SDLK_j
+#define PEGA_KEY_K SDLK_k
+#define PEGA_KEY_L SDLK_l
+#define PEGA_KEY_M SDLK_m
+#define PEGA_KEY_N SDLK_n
+#define PEGA_KEY_O SDLK_o
+#define PEGA_KEY_P SDLK_p
+#define PEGA_KEY_Q SDLK_q
+#define PEGA_KEY_R SDLK_r
+#define PEGA_KEY_S SDLK_s
+#define PEGA_KEY_T SDLK_t
+#define PEGA_KEY_U SDLK_u
+#define PEGA_KEY_V SDLK_v
+#define PEGA_KEY_W SDLK_w
+#define PEGA_KEY_X SDLK_x
+#define PEGA_KEY_Y SDLK_y
+#define PEGA_KEY_Z SDLK_z
+#define PEGA_KEY_CAPSLOCK SDLK_CAPSLOCK
+#define PEGA_KEY_F1 SDLK_F1
+#define PEGA_KEY_F2 SDLK_F2
+#define PEGA_KEY_F3 SDLK_F3
+#define PEGA_KEY_F4 SDLK_F4
+#define PEGA_KEY_F5 SDLK_F5
+#define PEGA_KEY_F6 SDLK_F6
+#define PEGA_KEY_F7 SDLK_F7
+#define PEGA_KEY_F8 SDLK_F8
+#define PEGA_KEY_F9 SDLK_F9
+#define PEGA_KEY_F10 SDLK_F10
+#define PEGA_KEY_F11 SDLK_F11
+#define PEGA_KEY_F12 SDLK_F12
+#define PEGA_KEY_PRINTSCREEN SDLK_PRINTSCREEN
+#define PEGA_KEY_SCROLLOCK SDLK_SCROLLLOCK
+#define PEGA_KEY_PAUSE SDLK_PAUSE
+#define PEGA_KEY_INSERT SDLK_INSERT
+#define PEGA_KEY_HOME SDLK_HOME
+#define PEGA_KEY_PAGEUP SDLK_PAGEUP
+#define PEGA_KEY_DELETE SDLK_DELETE
+#define PEGA_KEY_END SDLK_END
+#define PEGA_KEY_PAGEDOWN SDLK_PAGEDOWN
+#define PEGA_KEY_RIGHT SDLK_RIGHT
+#define PEGA_KEY_LEFT SDLK_LEFT
+#define PEGA_KEY_DOWN SDLK_DOWN
+#define PEGA_KEY_UP SDLK_UP
+#define PEGA_KEY_NUMLOCKCLEAR SDLK_NUMLOCKCLEAR
+#define PEGA_KEY_KP_DIVIDE SDLK_KP_DIVIDE
+#define PEGA_KEY_KP_MULTIPLY SDLK_KP_MULTIPLY
+#define PEGA_KEY_KP_MINUS SDLK_KP_MINUS
+#define PEGA_KEY_KP_PLUS SDLK_KP_PLUS
+#define PEGA_KEY_KP_ENTER SDLK_KP_ENTER
+#define PEGA_KEY_KP_1 SDLK_KP_1
+#define PEGA_KEY_KP_2 SDLK_KP_2
+#define PEGA_KEY_KP_3 SDLK_KP_3
+#define PEGA_KEY_KP_4 SDLK_KP_4
+#define PEGA_KEY_KP_5 SDLK_KP_5
+#define PEGA_KEY_KP_6 SDLK_KP_6
+#define PEGA_KEY_KP_7 SDLK_KP_7
+#define PEGA_KEY_KP_8 SDLK_KP_8
+#define PEGA_KEY_KP_9 SDLK_KP_9
+#define PEGA_KEY_KP_0 SDLK_KP_0
+#define PEGA_KEY_KP_PERIOD SDLK_KP_PERIOD
+#define PEGA_KEY_KP_EQUALS SDLK_KP_EQUALS
+#define PEGA_KEY_VOLUMEUP SDLK_VOLUMEUP
+#define PEGA_KEY_VOLUMEDOWN SDLK_VOLUMEDOWN
+#define PEGA_KEY_KP_COMMA SDLK_KP_COMMA
+#define PEGA_KEY_CANCEL SDLK_CANCEL
+#define PEGA_KEY_LEFT_CTRL SDLK_LCTRL
+#define PEGA_KEY_LEFT_SHIFT SDLK_LSHIFT
+#define PEGA_KEY_LEFT_ALT SDLK_LALT
+#define PEGA_KEY_LEFT_GUI SDLK_LGUI
+#define PEGA_KEY_RIGHT_CTRL SDLK_RCTRL
+#define PEGA_KEY_RIGHT_SHIFT SDLK_RSHIFT
+#define PEGA_KEY_RIGHT_ALT SDLK_RALT
+#define PEGA_KEY_RIGHT_GUI SDLK_RGUI
+#define PEGA_KEY_MODE SDLK_MODE
+
+class pegaEventKeyboard
+{
+protected:
+    pegaEventKeyboard()
+    {
+        this->symbol = '\0';
+        this->code = PEGA_KEY_UNKNOWN;
+    }
+    void setKey(SDL_Event* e)
+    {
+        this->code = e->key.keysym.sym;
+        if(this->code>=int(' ') && this->code<=('~'))
+        {
+            symbol = this->code;
+        }
+        else
+        {
+            symbol = '\0';
+        }
+    }
+public:
+    char symbol;
+    int code;
+    friend class pegaEvent;
+};
+
+#endif
+
+#endif
